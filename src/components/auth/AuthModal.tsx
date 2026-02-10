@@ -6,8 +6,10 @@ import {
   ModalContent,
   Button,
   Input,
+  Select,
+  SelectItem,
 } from '@heroui/react';
-import { FiHeart, FiMail, FiLock, FiUser, FiEye, FiEyeOff, FiArrowRight, FiCheckCircle, FiX } from 'react-icons/fi';
+import { FiHeart, FiMail, FiLock, FiUser, FiEye, FiEyeOff, FiArrowRight, FiCheckCircle, FiX, FiGrid } from 'react-icons/fi';
 import { FcGoogle } from 'react-icons/fc';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/hooks/useAuth';
@@ -33,6 +35,7 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
   const [registerRole, setRegisterRole] = useState<UserRole>('couple');
+  const [vendorCategory, setVendorCategory] = useState('');
   
   const [error, setError] = useState('');
   
@@ -52,6 +55,7 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
     setRegisterEmail('');
     setRegisterPassword('');
     setRegisterRole('couple');
+    setVendorCategory('');
     setError('');
     setShowPassword(false);
   };
@@ -113,6 +117,21 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
     'Save and compare your favorites',
     'Get exclusive deals and discounts',
     'Plan your perfect wedding day',
+  ];
+
+  const vendorCategories = [
+    { key: 'venues', label: 'Venues' },
+    { key: 'photography', label: 'Photography' },
+    { key: 'videography', label: 'Videography' },
+    { key: 'catering', label: 'Catering' },
+    { key: 'florists', label: 'Florists' },
+    { key: 'music-entertainment', label: 'Music & DJ' },
+    { key: 'bridal-wear', label: 'Bridal Wear' },
+    { key: 'jewelry', label: 'Jewelry' },
+    { key: 'makeup-hair', label: 'Makeup & Hair' },
+    { key: 'invitations', label: 'Invitations' },
+    { key: 'transportation', label: 'Transportation' },
+    { key: 'favors-gifts', label: 'Favors & Gifts' },
   ];
 
   return (
@@ -334,11 +353,11 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             placeholder="you@example.com"
                             value={loginEmail}
                             onValueChange={setLoginEmail}
-                            startContent={<FiMail className="text-white/40 text-lg" />}
+                            startContent={<FiMail className="text-white/50 text-lg mr-1" />}
                             isRequired
                             classNames={{
                               input: "text-white placeholder:text-white/40",
-                              inputWrapper: "bg-slate-800 border border-slate-600 hover:border-slate-500 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
+                              inputWrapper: "bg-slate-700/80 border border-slate-500 hover:border-slate-400 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
                             }}
                           />
                         </div>
@@ -355,16 +374,16 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             placeholder="••••••••"
                             value={loginPassword}
                             onValueChange={setLoginPassword}
-                            startContent={<FiLock className="text-white/40 text-lg" />}
+                            startContent={<FiLock className="text-white/50 text-lg mr-1" />}
                             endContent={
-                              <button type="button" onClick={() => setShowPassword(!showPassword)} className="text-white/40 hover:text-white/70 p-1">
+                              <button type="button" onClick={() => setShowPassword(!showPassword)} className="text-white/50 hover:text-white/70 p-1">
                                 {showPassword ? <FiEyeOff className="text-lg" /> : <FiEye className="text-lg" />}
                               </button>
                             }
                             isRequired
                             classNames={{
                               input: "text-white placeholder:text-white/40",
-                              inputWrapper: "bg-slate-800 border border-slate-600 hover:border-slate-500 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
+                              inputWrapper: "bg-slate-700/80 border border-slate-500 hover:border-slate-400 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
                             }}
                           />
                         </div>
@@ -491,11 +510,11 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             placeholder="John Doe"
                             value={registerName}
                             onValueChange={setRegisterName}
-                            startContent={<FiUser className="text-white/40 text-lg" />}
+                            startContent={<FiUser className="text-white/50 text-lg mr-1" />}
                             isRequired
                             classNames={{
                               input: "text-white placeholder:text-white/40",
-                              inputWrapper: "bg-slate-800 border border-slate-600 hover:border-slate-500 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
+                              inputWrapper: "bg-slate-700/80 border border-slate-500 hover:border-slate-400 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
                             }}
                           />
                         </div>
@@ -507,11 +526,11 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             placeholder="you@example.com"
                             value={registerEmail}
                             onValueChange={setRegisterEmail}
-                            startContent={<FiMail className="text-white/40 text-lg" />}
+                            startContent={<FiMail className="text-white/50 text-lg mr-1" />}
                             isRequired
                             classNames={{
                               input: "text-white placeholder:text-white/40",
-                              inputWrapper: "bg-slate-800 border border-slate-600 hover:border-slate-500 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
+                              inputWrapper: "bg-slate-700/80 border border-slate-500 hover:border-slate-400 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
                             }}
                           />
                         </div>
@@ -523,19 +542,43 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             placeholder="Min. 6 characters"
                             value={registerPassword}
                             onValueChange={setRegisterPassword}
-                            startContent={<FiLock className="text-white/40 text-lg" />}
+                            startContent={<FiLock className="text-white/50 text-lg mr-1" />}
                             endContent={
-                              <button type="button" onClick={() => setShowPassword(!showPassword)} className="text-white/40 hover:text-white/70 p-1">
+                              <button type="button" onClick={() => setShowPassword(!showPassword)} className="text-white/50 hover:text-white/70 p-1">
                                 {showPassword ? <FiEyeOff className="text-lg" /> : <FiEye className="text-lg" />}
                               </button>
                             }
                             isRequired
                             classNames={{
                               input: "text-white placeholder:text-white/40",
-                              inputWrapper: "bg-slate-800 border border-slate-600 hover:border-slate-500 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
+                              inputWrapper: "bg-slate-700/80 border border-slate-500 hover:border-slate-400 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
                             }}
                           />
                         </div>
+
+                        {/* Vendor Category - only shown when provider is selected */}
+                        {registerRole === 'provider' && (
+                          <div>
+                            <label className="block text-xs font-medium text-white/70 mb-1">Service Category</label>
+                            <Select
+                              placeholder="Select your category"
+                              selectedKeys={vendorCategory ? [vendorCategory] : []}
+                              onSelectionChange={(keys) => setVendorCategory(Array.from(keys)[0] as string)}
+                              startContent={<FiGrid className="text-white/50 text-lg mr-1" />}
+                              classNames={{
+                                trigger: "bg-slate-700/80 border border-slate-500 hover:border-slate-400 data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
+                                value: "text-white",
+                                popoverContent: "bg-slate-800 border border-slate-600",
+                              }}
+                            >
+                              {vendorCategories.map((category) => (
+                                <SelectItem key={category.key} className="text-white hover:bg-slate-700">
+                                  {category.label}
+                                </SelectItem>
+                              ))}
+                            </Select>
+                          </div>
+                        )}
                       </div>
                       
                       <Button
