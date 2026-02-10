@@ -20,6 +20,7 @@ import {
 } from '@heroui/react';
 import { FiHeart, FiLogOut, FiSettings, FiGrid, FiChevronDown, FiSearch, FiUser } from 'react-icons/fi';
 import { useAuth } from '@/hooks/useAuth';
+import { useAuthModal } from '@/context/AuthModalContext';
 
 const publicLinks = [
   { name: 'Home', href: '/' },
@@ -32,6 +33,7 @@ export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const { user, profile, isAuthenticated, logout, isCouple, isProvider, isAdmin } = useAuth();
+  const { openLogin, openRegister } = useAuthModal();
 
   const getDashboardLink = () => {
     if (isAdmin) return '/admin/dashboard';
@@ -158,18 +160,20 @@ export function Navbar() {
             <>
               {/* User Icon */}
               <NavbarItem className="hidden sm:flex">
-                <Link href="/login">
-                  <button className="w-11 h-11 rounded-full flex items-center justify-center text-white/70 hover:text-pink-400 hover:bg-white/10 transition-colors">
-                    <FiUser className="text-xl" />
-                  </button>
-                </Link>
+                <button 
+                  onClick={openLogin}
+                  className="w-11 h-11 rounded-full flex items-center justify-center text-white/70 hover:text-pink-400 hover:bg-white/10 transition-colors"
+                >
+                  <FiUser className="text-xl" />
+                </button>
               </NavbarItem>
               <NavbarItem>
-                <Link href="/register">
-                  <Button className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold px-7 py-2.5 text-base rounded-full shadow-lg shadow-pink-500/30 hover:shadow-pink-500/50 transition-all duration-300">
-                    Get Started
-                  </Button>
-                </Link>
+                <Button 
+                  onPress={openRegister}
+                  className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold px-7 py-2.5 text-base rounded-full shadow-lg shadow-pink-500/30 hover:shadow-pink-500/50 transition-all duration-300"
+                >
+                  Get Started
+                </Button>
               </NavbarItem>
             </>
           )}
@@ -195,22 +199,26 @@ export function Navbar() {
           {!isAuthenticated && (
             <>
               <NavbarMenuItem className="mt-6 pt-6 border-t border-white/10">
-                <Link
-                  href="/login"
-                  className="block py-3 text-lg text-white/70 font-medium"
-                  onClick={() => setIsMenuOpen(false)}
+                <button
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    openLogin();
+                  }}
+                  className="w-full block py-3 text-lg text-white/70 font-medium text-left"
                 >
                   Log In
-                </Link>
+                </button>
               </NavbarMenuItem>
               <NavbarMenuItem className="mt-2">
-                <Link
-                  href="/register"
-                  className="block py-3 text-lg text-white font-semibold bg-gradient-to-r from-pink-500 to-pink-600 rounded-full text-center"
-                  onClick={() => setIsMenuOpen(false)}
+                <button
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    openRegister();
+                  }}
+                  className="w-full block py-3 text-lg text-white font-semibold bg-gradient-to-r from-pink-500 to-pink-600 rounded-full text-center"
                 >
                   Get Started
-                </Link>
+                </button>
               </NavbarMenuItem>
             </>
           )}
