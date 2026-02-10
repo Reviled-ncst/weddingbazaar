@@ -43,35 +43,37 @@ export function Navbar() {
     <HeroNavbar
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
-      className="bg-white/80 backdrop-blur-md border-b border-gray-100"
+      className="bg-white/95 backdrop-blur-md border-b border-pink-100/50 shadow-sm"
       maxWidth="xl"
     >
       {/* Logo */}
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          className="sm:hidden"
+          className="sm:hidden text-gray-700"
         />
         <NavbarBrand>
           <Link href="/" className="flex items-center gap-2">
-            <FiHeart className="text-rose-500 text-2xl" />
-            <span className="font-bold text-xl text-gray-900">
-              Wedding<span className="text-rose-500">Bazaar</span>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-pink-300 flex items-center justify-center">
+              <FiHeart className="text-white text-sm" />
+            </div>
+            <span className="font-light text-xl text-gray-900 tracking-tight">
+              Wedding<span className="font-semibold text-pink-500">Bazaar</span>
             </span>
           </Link>
         </NavbarBrand>
       </NavbarContent>
 
       {/* Desktop Navigation */}
-      <NavbarContent className="hidden sm:flex gap-6" justify="center">
+      <NavbarContent className="hidden sm:flex gap-8" justify="center">
         {publicLinks.map((link) => (
           <NavbarItem key={link.href} isActive={pathname === link.href}>
             <Link
               href={link.href}
-              className={`text-sm font-medium transition-colors ${
+              className={`text-sm tracking-wide transition-colors ${
                 pathname === link.href
-                  ? 'text-rose-500'
-                  : 'text-gray-600 hover:text-rose-500'
+                  ? 'text-pink-500 font-medium'
+                  : 'text-gray-600 hover:text-pink-500 font-light'
               }`}
             >
               {link.name}
@@ -137,14 +139,14 @@ export function Navbar() {
           <>
             <NavbarItem className="hidden sm:flex">
               <Link href="/login">
-                <Button variant="light" className="text-gray-700">
+                <Button variant="light" className="text-gray-600 font-light">
                   Log In
                 </Button>
               </Link>
             </NavbarItem>
             <NavbarItem>
               <Link href="/register">
-                <Button color="primary" className="bg-rose-500 hover:bg-rose-600">
+                <Button className="bg-gray-900 hover:bg-gray-800 text-white font-medium px-6">
                   Get Started
                 </Button>
               </Link>
