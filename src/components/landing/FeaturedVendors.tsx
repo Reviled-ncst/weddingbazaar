@@ -46,10 +46,11 @@ const vendors = [
 
 export function FeaturedVendors() {
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
+    <section className="py-24 bg-slate-950 relative overflow-hidden">
       {/* Background Decorations */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-pink-50 rounded-full -translate-x-1/2 -translate-y-1/2 opacity-60" />
-      <div className="absolute bottom-0 right-0 w-64 h-64 bg-pink-50 rounded-full translate-x-1/3 translate-y-1/3 opacity-60" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-pink-500/5 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-64 h-64 bg-pink-500/5 rounded-full translate-x-1/3 translate-y-1/3 blur-3xl" />
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
@@ -68,16 +69,16 @@ export function FeaturedVendors() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl md:text-5xl font-light text-gray-900 mb-4"
+            className="text-4xl md:text-5xl font-bold text-white mb-4"
           >
-            Featured <span className="font-medium text-pink-500">Vendors</span>
+            Featured <span className="text-pink-400">Vendors</span>
           </motion.h2>
           <motion.div
             initial={{ width: 0 }}
             whileInView={{ width: 60 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="h-[1px] bg-gradient-to-r from-transparent via-pink-400 to-transparent mx-auto"
+            className="h-[1px] bg-gradient-to-r from-transparent via-pink-500 to-transparent mx-auto"
           />
         </div>
 
@@ -92,44 +93,44 @@ export function FeaturedVendors() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group"
             >
-              <div className="relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100">
+              <div className="relative bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:border-pink-500/40 transition-all duration-500">
                 {/* Image */}
-                <div className="relative h-64 overflow-hidden">
+                <div className="relative h-56 overflow-hidden">
                   <div
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
                     style={{ backgroundImage: `url('${vendor.image}')` }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
                   
                   {/* Featured Badge */}
                   {vendor.featured && (
-                    <div className="absolute top-4 left-4 bg-pink-500 text-white text-[10px] uppercase tracking-wider px-3 py-1 rounded-full font-medium">
+                    <div className="absolute top-4 left-4 bg-pink-500 text-white text-[10px] uppercase tracking-wider px-3 py-1 rounded-full font-bold">
                       Featured
                     </div>
                   )}
 
                   {/* Favorite Button */}
-                  <button className="absolute top-4 right-4 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-pink-500 hover:text-white transition-all duration-300 text-gray-600">
+                  <button className="absolute top-4 right-4 w-10 h-10 bg-slate-900/80 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-pink-500 text-white/70 hover:text-white transition-all duration-300 border border-white/10">
                     <FiHeart className="text-lg" />
                   </button>
 
                   {/* Category */}
                   <div className="absolute bottom-4 left-4">
-                    <span className="text-white/80 text-xs uppercase tracking-wider">{vendor.category}</span>
+                    <span className="text-pink-300 text-xs uppercase tracking-wider font-medium">{vendor.category}</span>
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="p-6">
-                  <h3 className="text-lg font-medium text-gray-900 mb-2 group-hover:text-pink-500 transition-colors duration-300">
+                <div className="p-5">
+                  <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-pink-400 transition-colors duration-300">
                     {vendor.name}
                   </h3>
                   <div className="flex items-center gap-2">
                     <div className="flex items-center gap-1 text-pink-400">
                       <FiStar className="fill-current" />
-                      <span className="font-medium text-gray-900">{vendor.rating}</span>
+                      <span className="font-semibold text-white">{vendor.rating}</span>
                     </div>
-                    <span className="text-gray-400 text-sm">({vendor.reviews} reviews)</span>
+                    <span className="text-white/40 text-sm">({vendor.reviews} reviews)</span>
                   </div>
                 </div>
               </div>
@@ -148,7 +149,7 @@ export function FeaturedVendors() {
           <Link href="/vendors">
             <Button
               size="lg"
-              className="bg-gray-900 text-white hover:bg-gray-800 px-8 py-6 text-sm font-medium tracking-wider uppercase"
+              className="bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white px-8 py-6 text-sm font-semibold tracking-wider uppercase shadow-lg shadow-pink-500/30"
               endContent={<FiArrowRight />}
             >
               View All Vendors

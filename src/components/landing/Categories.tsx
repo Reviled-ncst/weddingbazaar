@@ -32,10 +32,11 @@ const categories = [
 
 export function Categories() {
   return (
-    <section className="py-24 bg-gradient-to-b from-white to-pink-50/30 relative overflow-hidden">
+    <section className="py-24 bg-slate-900 relative overflow-hidden">
       {/* Background Decoration */}
-      <div className="absolute top-20 left-20 w-40 h-40 bg-pink-100/50 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-20 w-60 h-60 bg-pink-100/30 rounded-full blur-3xl" />
+      <div className="absolute top-20 left-20 w-64 h-64 bg-pink-500/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 right-20 w-80 h-80 bg-pink-500/5 rounded-full blur-3xl" />
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
@@ -44,13 +45,13 @@ export function Categories() {
             initial={{ width: 0 }}
             whileInView={{ width: 60 }}
             viewport={{ once: true }}
-            className="h-[1px] bg-gradient-to-r from-transparent via-pink-400 to-transparent mx-auto mb-6"
+            className="h-[1px] bg-gradient-to-r from-transparent via-pink-500 to-transparent mx-auto mb-6"
           />
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-pink-500 text-xs uppercase tracking-[0.4em] mb-3 font-medium"
+            className="text-pink-400 text-xs uppercase tracking-[0.4em] mb-3 font-medium"
           >
             Explore Services
           </motion.p>
@@ -58,23 +59,23 @@ export function Categories() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl sm:text-5xl font-light text-gray-900 mb-4"
+            className="text-4xl sm:text-5xl font-bold text-white mb-4"
           >
-            Find Your <span className="font-medium text-pink-500">Perfect Team</span>
+            Find Your <span className="text-pink-400">Perfect Team</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-gray-500 max-w-md mx-auto font-light"
+            className="text-white/50 max-w-md mx-auto"
           >
             Curated vendors for every aspect of your celebration
           </motion.p>
         </div>
 
         {/* Categories Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-5">
           {categories.map((category, index) => {
             const Icon = category.icon;
             return (
@@ -86,10 +87,10 @@ export function Categories() {
                 transition={{ delay: index * 0.05 }}
               >
                 <Link href={`/categories/${category.slug}`}>
-                  <div className="group relative p-6 rounded-2xl bg-white border border-gray-100 hover:border-pink-200 hover:shadow-xl hover:shadow-pink-100/50 transition-all duration-300 cursor-pointer overflow-hidden">
+                  <div className="group relative p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-pink-500/40 hover:bg-white/10 transition-all duration-300 cursor-pointer overflow-hidden backdrop-blur-sm">
                     {/* Badge */}
                     {category.badge && (
-                      <div className={`absolute top-2 right-2 text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full font-semibold ${
+                      <div className={`absolute top-2 right-2 text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full font-bold ${
                         category.badge === 'Popular' 
                           ? 'bg-pink-500 text-white' 
                           : 'bg-emerald-500 text-white'
@@ -99,24 +100,19 @@ export function Categories() {
                     )}
                     
                     <div className="flex flex-col items-center text-center">
-                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-50 to-pink-100 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                        <Icon className="text-2xl text-pink-500 group-hover:text-pink-600 transition-colors" />
+                      <div className="w-14 h-14 rounded-xl bg-pink-500/20 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-pink-500/30 transition-all duration-300">
+                        <Icon className="text-2xl text-pink-400 group-hover:text-pink-300 transition-colors" />
                       </div>
-                      <span className="text-sm font-medium text-gray-800 group-hover:text-gray-900 transition-colors mb-1">
+                      <span className="text-sm font-semibold text-white group-hover:text-pink-300 transition-colors mb-1">
                         {category.name}
                       </span>
-                      <span className="text-xs text-gray-400">
+                      <span className="text-xs text-white/40">
                         {category.count} vendors
                       </span>
                     </div>
                     
-                    {/* Hover arrow */}
-                    <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
-                      <FiArrowRight className="text-pink-400" />
-                    </div>
-                    
-                    {/* Bottom accent line */}
-                    <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-pink-400 to-pink-300 group-hover:w-full transition-all duration-300" />
+                    {/* Hover glow */}
+                    <div className="absolute inset-0 rounded-2xl bg-pink-500/0 group-hover:bg-pink-500/5 transition-colors" />
                   </div>
                 </Link>
               </motion.div>
@@ -133,10 +129,10 @@ export function Categories() {
         >
           <Link
             href="/categories"
-            className="inline-flex items-center gap-3 text-gray-600 hover:text-pink-500 transition-colors group"
+            className="inline-flex items-center gap-3 text-white/60 hover:text-pink-400 transition-colors group"
           >
             <span className="text-sm uppercase tracking-wider font-medium">View All Categories</span>
-            <span className="w-8 h-[1px] bg-gray-300 group-hover:w-12 group-hover:bg-pink-400 transition-all" />
+            <span className="w-8 h-[1px] bg-white/30 group-hover:w-12 group-hover:bg-pink-400 transition-all" />
           </Link>
         </motion.div>
       </div>

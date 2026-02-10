@@ -36,11 +36,11 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-28 bg-gradient-to-b from-pink-50/50 via-white to-pink-50/30 relative overflow-hidden">
+    <section id="how-it-works" className="py-28 bg-slate-900 relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute top-20 right-20 w-96 h-96 bg-pink-100/40 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 left-20 w-64 h-64 bg-rose-100/30 rounded-full blur-3xl" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-100/20 rounded-full blur-3xl" />
+      <div className="absolute top-20 right-20 w-96 h-96 bg-pink-500/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 left-20 w-64 h-64 bg-pink-500/5 rounded-full blur-3xl" />
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
@@ -49,13 +49,13 @@ export function HowItWorks() {
             initial={{ width: 0 }}
             whileInView={{ width: 60 }}
             viewport={{ once: true }}
-            className="h-[1px] bg-gradient-to-r from-transparent via-pink-400 to-transparent mx-auto mb-6"
+            className="h-[1px] bg-gradient-to-r from-transparent via-pink-500 to-transparent mx-auto mb-6"
           />
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-pink-500 text-xs uppercase tracking-[0.4em] mb-3 font-medium"
+            className="text-pink-400 text-xs uppercase tracking-[0.4em] mb-3 font-medium"
           >
             Simple Process
           </motion.p>
@@ -63,16 +63,16 @@ export function HowItWorks() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-4xl sm:text-5xl font-light text-gray-900 mb-4"
+            className="text-4xl sm:text-5xl font-bold text-white mb-4"
           >
-            How It <span className="font-medium text-pink-500">Works</span>
+            How It <span className="text-pink-400">Works</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-gray-500 max-w-md mx-auto"
+            className="text-white/50 max-w-md mx-auto"
           >
             Four simple steps to your perfect wedding
           </motion.p>
@@ -81,20 +81,8 @@ export function HowItWorks() {
         {/* Steps */}
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6 relative">
-            {/* Connecting arrows */}
-            <div className="hidden md:flex absolute top-20 left-[20%] right-[20%] justify-between items-center px-8">
-              {[0, 1, 2].map((i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.5 + i * 0.1 }}
-                >
-                  <FiArrowRight className="text-pink-300 text-xl" />
-                </motion.div>
-              ))}
-            </div>
+            {/* Connecting line */}
+            <div className="hidden md:block absolute top-16 left-[15%] right-[15%] h-px bg-gradient-to-r from-pink-500/30 via-pink-500/50 to-pink-500/30" />
             
             {steps.map((step, index) => {
               const Icon = step.icon;
@@ -109,23 +97,20 @@ export function HowItWorks() {
                 >
                   {/* Icon Circle */}
                   <div className="relative inline-block mb-8">
-                    {/* Outer ring */}
-                    <div className="absolute -inset-3 rounded-full bg-gradient-to-br from-pink-100 to-rose-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    
-                    <div className={`relative w-28 h-28 rounded-full bg-gradient-to-br ${step.color} shadow-lg shadow-pink-200/50 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300`}>
-                      <Icon className="text-4xl text-white" />
+                    <div className={`relative w-24 h-24 rounded-2xl bg-gradient-to-br ${step.color} shadow-xl shadow-pink-500/30 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300`}>
+                      <Icon className="text-3xl text-white" />
                     </div>
                     
                     {/* Number badge */}
-                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-gray-900 text-white text-xs font-medium tracking-wider">
+                    <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-slate-800 border border-white/20 text-white text-xs font-bold tracking-wider">
                       {step.number}
                     </div>
                   </div>
                   
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  <h3 className="text-xl font-bold text-white mb-3">
                     {step.title}
                   </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed font-light max-w-[220px] mx-auto">
+                  <p className="text-white/50 text-sm leading-relaxed max-w-[200px] mx-auto">
                     {step.description}
                   </p>
                 </motion.div>

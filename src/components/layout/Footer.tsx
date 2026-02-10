@@ -38,23 +38,23 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-white border-t border-pink-100">
+    <footer className="bg-slate-950 border-t border-white/10">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500 to-rose-400 flex items-center justify-center shadow-md shadow-pink-200/50">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500 to-pink-600 flex items-center justify-center shadow-lg shadow-pink-500/30">
                 <FiHeart className="text-white text-lg" />
               </div>
               <div className="flex flex-col">
-                <span className="font-semibold text-lg text-gray-900 tracking-tight leading-none">
-                  Wedding<span className="text-pink-500">Bazaar</span>
+                <span className="font-bold text-lg text-white tracking-tight leading-none">
+                  Wedding<span className="text-pink-400">Bazaar</span>
                 </span>
-                <span className="text-[10px] text-pink-400 uppercase tracking-widest font-medium">Philippines</span>
+                <span className="text-[10px] text-pink-400/70 uppercase tracking-widest font-medium">Philippines</span>
               </div>
             </Link>
-            <p className="text-sm text-gray-600 mb-6 leading-relaxed">
+            <p className="text-sm text-white/50 mb-6 leading-relaxed">
               The Philippines&apos; premier wedding planning platform.
             </p>
             {/* Social Links */}
@@ -67,7 +67,7 @@ export function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-xl bg-pink-50 flex items-center justify-center text-pink-400 hover:bg-pink-500 hover:text-white transition-all duration-300 hover:shadow-md hover:shadow-pink-200/50"
+                    className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:bg-pink-500 hover:border-pink-500 hover:text-white transition-all duration-300"
                     aria-label={social.name}
                   >
                     <Icon className="text-base" />
@@ -79,13 +79,13 @@ export function Footer() {
 
           {/* For Couples */}
           <div>
-            <h3 className="text-xs font-semibold text-pink-500 uppercase tracking-widest mb-5">For Couples</h3>
+            <h3 className="text-xs font-bold text-pink-400 uppercase tracking-widest mb-5">For Couples</h3>
             <ul className="space-y-3">
               {footerLinks.forCouples.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-600 hover:text-pink-500 transition-colors font-medium"
+                    className="text-sm text-white/60 hover:text-pink-400 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -96,13 +96,13 @@ export function Footer() {
 
           {/* For Vendors */}
           <div>
-            <h3 className="text-xs font-semibold text-pink-500 uppercase tracking-widest mb-5">For Vendors</h3>
+            <h3 className="text-xs font-bold text-pink-400 uppercase tracking-widest mb-5">For Vendors</h3>
             <ul className="space-y-3">
               {footerLinks.forVendors.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-600 hover:text-pink-500 transition-colors font-medium"
+                    className="text-sm text-white/60 hover:text-pink-400 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -113,13 +113,13 @@ export function Footer() {
 
           {/* Company */}
           <div>
-            <h3 className="text-xs font-semibold text-pink-500 uppercase tracking-widest mb-5">Company</h3>
+            <h3 className="text-xs font-bold text-pink-400 uppercase tracking-widest mb-5">Company</h3>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-600 hover:text-pink-500 transition-colors font-medium"
+                    className="text-sm text-white/60 hover:text-pink-400 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -130,13 +130,13 @@ export function Footer() {
 
           {/* Legal */}
           <div>
-            <h3 className="text-xs font-semibold text-pink-500 uppercase tracking-widest mb-5">Legal</h3>
+            <h3 className="text-xs font-bold text-pink-400 uppercase tracking-widest mb-5">Legal</h3>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-600 hover:text-pink-500 transition-colors font-medium"
+                    className="text-sm text-white/60 hover:text-pink-400 transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -147,11 +147,11 @@ export function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-pink-100 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-gray-500">
+        <div className="border-t border-white/10 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-white/40">
             © {new Date().getFullYear()} Wedding Bazaar. All rights reserved.
           </p>
-          <p className="text-sm text-gray-500 flex items-center gap-2">
+          <p className="text-sm text-white/40 flex items-center gap-2">
             Made with <FiHeart className="text-pink-500 fill-pink-500" /> in the Philippines
           </p>
         </div>

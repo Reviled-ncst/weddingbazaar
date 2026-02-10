@@ -52,10 +52,10 @@ export function Navbar() {
     <HeroNavbar
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled 
-          ? 'bg-white shadow-lg shadow-pink-100/20 border-b border-pink-100' 
-          : 'bg-white/80 backdrop-blur-sm border-b border-transparent'
+          ? 'bg-slate-900/95 backdrop-blur-md shadow-xl shadow-black/20 border-b border-white/10' 
+          : 'bg-transparent border-b border-transparent'
       }`}
       maxWidth="xl"
     >
@@ -63,18 +63,18 @@ export function Navbar() {
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          className="sm:hidden text-pink-500"
+          className="sm:hidden text-pink-400"
         />
         <NavbarBrand>
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500 to-rose-400 flex items-center justify-center shadow-md shadow-pink-200/50 group-hover:shadow-lg group-hover:shadow-pink-200/70 transition-all duration-300 group-hover:scale-105">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500 to-pink-600 flex items-center justify-center shadow-lg shadow-pink-500/30 group-hover:shadow-pink-500/50 transition-all duration-300 group-hover:scale-105">
               <FiHeart className="text-white text-lg" />
             </div>
             <div className="flex flex-col">
-              <span className="font-semibold text-xl text-gray-900 tracking-tight leading-none">
-                Wedding<span className="text-pink-500">Bazaar</span>
+              <span className="font-bold text-xl text-white tracking-tight leading-none">
+                Wedding<span className="text-pink-400">Bazaar</span>
               </span>
-              <span className="text-[10px] text-pink-400 uppercase tracking-widest font-medium hidden sm:block">Philippines</span>
+              <span className="text-[10px] text-pink-400/70 uppercase tracking-widest font-medium hidden sm:block">Philippines</span>
             </div>
           </Link>
         </NavbarBrand>
@@ -86,10 +86,10 @@ export function Navbar() {
           <NavbarItem key={link.href} isActive={pathname === link.href}>
             <Link
               href={link.href}
-              className={`px-4 py-2 rounded-full text-sm tracking-wide transition-all duration-200 ${
+              className={`px-5 py-2.5 rounded-full text-sm font-medium tracking-wide transition-all duration-300 ${
                 pathname === link.href
-                  ? 'bg-pink-50 text-pink-600 font-medium'
-                  : 'text-gray-600 hover:bg-pink-50 hover:text-pink-500 font-medium'
+                  ? 'bg-pink-500/20 text-pink-400 border border-pink-500/30'
+                  : 'text-white/80 hover:text-pink-400 hover:bg-white/5'
               }`}
             >
               {link.name}
@@ -99,25 +99,25 @@ export function Navbar() {
       </NavbarContent>
 
       {/* Auth Section */}
-      <NavbarContent justify="end" className="gap-2">
+      <NavbarContent justify="end" className="gap-3">
         {isAuthenticated ? (
           <Dropdown placement="bottom-end">
             <DropdownTrigger>
-              <button className="flex items-center gap-2 px-3 py-2 rounded-full hover:bg-pink-50 transition-colors">
+              <button className="flex items-center gap-2 px-3 py-2 rounded-full hover:bg-white/10 transition-colors">
                 <Avatar
-                  className="ring-2 ring-pink-200"
+                  className="ring-2 ring-pink-500/50"
                   color="secondary"
                   name={profile?.displayName || user?.email || 'User'}
                   size="sm"
                   src={profile?.photoURL || undefined}
                 />
-                <FiChevronDown className="text-gray-400 text-sm" />
+                <FiChevronDown className="text-white/60 text-sm" />
               </button>
             </DropdownTrigger>
-            <DropdownMenu aria-label="User menu" variant="flat" className="w-56">
+            <DropdownMenu aria-label="User menu" variant="flat" className="w-56 bg-slate-800 border border-white/10">
               <DropdownItem key="profile" className="h-14 gap-2" textValue="profile">
-                <p className="font-medium text-gray-500 text-xs">Signed in as</p>
-                <p className="font-semibold text-pink-500">
+                <p className="font-medium text-white/50 text-xs">Signed in as</p>
+                <p className="font-semibold text-pink-400">
                   {profile?.displayName || user?.email}
                 </p>
               </DropdownItem>
@@ -157,14 +157,14 @@ export function Navbar() {
           <>
             <NavbarItem className="hidden sm:flex">
               <Link href="/login">
-                <Button variant="light" className="text-gray-600 font-medium hover:text-pink-500 hover:bg-pink-50">
+                <Button variant="light" className="text-white/80 font-medium hover:text-pink-400 hover:bg-white/5">
                   Log In
                 </Button>
               </Link>
             </NavbarItem>
             <NavbarItem>
               <Link href="/register">
-                <Button className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold px-6 shadow-md shadow-pink-200/50 hover:shadow-lg hover:shadow-pink-300/50 transition-all duration-300">
+                <Button className="bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white font-semibold px-6 shadow-lg shadow-pink-500/30 hover:shadow-pink-500/50 transition-all duration-300">
                   Get Started
                 </Button>
               </Link>
@@ -174,15 +174,15 @@ export function Navbar() {
       </NavbarContent>
 
       {/* Mobile Menu */}
-      <NavbarMenu className="pt-6 bg-white">
+      <NavbarMenu className="pt-6 bg-slate-900">
         {publicLinks.map((link) => (
           <NavbarMenuItem key={link.href}>
             <Link
               href={link.href}
               className={`w-full block py-3 text-lg font-medium rounded-xl px-4 transition-colors ${
                 pathname === link.href 
-                  ? 'text-pink-500 bg-pink-50' 
-                  : 'text-gray-700 hover:bg-pink-50 hover:text-pink-500'
+                  ? 'text-pink-400 bg-pink-500/10' 
+                  : 'text-white/80 hover:bg-white/5 hover:text-pink-400'
               }`}
               onClick={() => setIsMenuOpen(false)}
             >
@@ -195,7 +195,7 @@ export function Navbar() {
             <NavbarMenuItem className="mt-4">
               <Link
                 href="/login"
-                className="w-full block py-3 text-lg text-gray-600 font-medium px-4"
+                className="w-full block py-3 text-lg text-white/70 font-medium px-4"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Log In
@@ -204,7 +204,7 @@ export function Navbar() {
             <NavbarMenuItem>
               <Link
                 href="/register"
-                className="w-full block py-3 text-lg text-white font-semibold px-4 bg-gradient-to-r from-pink-500 to-rose-500 rounded-xl text-center"
+                className="w-full block py-3 text-lg text-white font-semibold px-4 bg-gradient-to-r from-pink-500 to-pink-600 rounded-xl text-center"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Get Started

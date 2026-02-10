@@ -7,9 +7,9 @@ import { FiArrowRight, FiHeart, FiBriefcase } from 'react-icons/fi';
 
 export function CTA() {
   return (
-    <section className="py-28 bg-gradient-to-b from-gray-950 to-gray-900 relative overflow-hidden">
+    <section className="py-28 bg-slate-950 relative overflow-hidden">
       {/* Background decorations */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-pink-500/30 to-transparent" />
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       <div className="absolute top-20 left-20 w-64 h-64 bg-pink-500/5 rounded-full blur-3xl" />
       <div className="absolute bottom-20 right-20 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl" />
 
@@ -29,16 +29,16 @@ export function CTA() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-5xl font-light text-white mb-4"
+            className="text-4xl md:text-5xl font-bold text-white mb-4"
           >
-            Ready to Begin Your <span className="text-pink-400 font-medium">Journey</span>?
+            Ready to Begin Your <span className="text-pink-400">Journey</span>?
           </motion.h2>
           <motion.div
             initial={{ width: 0 }}
             whileInView={{ width: 60 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="h-px bg-gradient-to-r from-transparent via-pink-400 to-transparent mx-auto"
+            className="h-px bg-gradient-to-r from-transparent via-pink-500 to-transparent mx-auto"
           />
         </div>
 
