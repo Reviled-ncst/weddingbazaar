@@ -43,13 +43,14 @@ export function Navbar() {
   return (
     <>
       {/* Top accent bar */}
-      <div className="fixed top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-slate-700 via-slate-600 to-slate-700 z-[60]" />
+      <div className="fixed top-0 left-0 right-0 h-2 bg-gradient-to-r from-slate-700 via-slate-600 to-slate-700 z-[60]" />
       
       <HeroNavbar
         isMenuOpen={isMenuOpen}
         onMenuOpenChange={setIsMenuOpen}
-        className="fixed top-1.5 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-700/50"
+        className="fixed top-2 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-700/50 h-20"
         maxWidth="xl"
+        height="5rem"
       >
         {/* Logo */}
         <NavbarContent>
@@ -59,7 +60,7 @@ export function Navbar() {
           />
           <NavbarBrand>
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center shadow-lg shadow-pink-500/30 group-hover:shadow-pink-500/50 transition-all duration-300 group-hover:scale-105">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center shadow-lg shadow-pink-500/30 group-hover:shadow-pink-500/50 transition-all duration-300 group-hover:scale-105">
                 <FiHeart className="text-white text-xl" />
               </div>
               <div className="flex flex-col">
@@ -72,17 +73,17 @@ export function Navbar() {
           </NavbarBrand>
         </NavbarContent>
 
-        {/* Desktop Navigation - Cream/beige container for contrast */}
+        {/* Desktop Navigation - Dark container for contrast */}
         <NavbarContent className="hidden sm:flex" justify="center">
-          <div className="flex items-center gap-1 bg-amber-50/95 backdrop-blur-sm rounded-full px-2 py-1.5 shadow-lg shadow-black/10 border border-amber-100/50">
+          <div className="flex items-center gap-1 bg-slate-800/90 backdrop-blur-sm rounded-full px-3 py-2 shadow-lg shadow-black/20 border border-slate-700/50">
             {publicLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-200 ${
                   pathname === link.href
-                    ? 'text-pink-600 bg-white shadow-sm'
-                    : 'text-slate-600 hover:text-pink-600 hover:bg-white/50'
+                    ? 'text-white bg-pink-500 shadow-md shadow-pink-500/30'
+                    : 'text-white/70 hover:text-white hover:bg-slate-700/50'
                 }`}
               >
                 {link.name}
@@ -92,18 +93,18 @@ export function Navbar() {
         </NavbarContent>
 
         {/* Auth Section */}
-        <NavbarContent justify="end" className="gap-2">
+        <NavbarContent justify="end" className="gap-3">
           {/* Search Icon */}
           <NavbarItem className="hidden sm:flex">
-            <button className="w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-pink-400 hover:bg-white/10 transition-colors">
-              <FiSearch className="text-lg" />
+            <button className="w-11 h-11 rounded-full flex items-center justify-center text-white/70 hover:text-pink-400 hover:bg-white/10 transition-colors">
+              <FiSearch className="text-xl" />
             </button>
           </NavbarItem>
 
           {isAuthenticated ? (
             <Dropdown placement="bottom-end">
               <DropdownTrigger>
-                <button className="flex items-center gap-2 px-2 py-2 rounded-full hover:bg-white/10 transition-colors">
+                <button className="flex items-center gap-2 px-3 py-2 rounded-full hover:bg-white/10 transition-colors">
                   <Avatar
                     className="ring-2 ring-pink-500/50"
                     color="secondary"
@@ -158,14 +159,14 @@ export function Navbar() {
               {/* User Icon */}
               <NavbarItem className="hidden sm:flex">
                 <Link href="/login">
-                  <button className="w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-pink-400 hover:bg-white/10 transition-colors">
-                    <FiUser className="text-lg" />
+                  <button className="w-11 h-11 rounded-full flex items-center justify-center text-white/70 hover:text-pink-400 hover:bg-white/10 transition-colors">
+                    <FiUser className="text-xl" />
                   </button>
                 </Link>
               </NavbarItem>
               <NavbarItem>
                 <Link href="/register">
-                  <Button className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold px-6 rounded-full shadow-lg shadow-pink-500/30 hover:shadow-pink-500/50 transition-all duration-300">
+                  <Button className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold px-7 py-2.5 text-base rounded-full shadow-lg shadow-pink-500/30 hover:shadow-pink-500/50 transition-all duration-300">
                     Get Started
                   </Button>
                 </Link>
