@@ -20,6 +20,7 @@ import {
   onAuthChange,
   UserRole,
   UserProfile,
+  GoogleAuthResult,
 } from '@/lib/firebase/auth';
 
 export interface AuthState {
@@ -35,10 +36,11 @@ export interface AuthContextType extends AuthState {
     email: string,
     password: string,
     displayName: string,
-    role: UserRole
+    role: UserRole,
+    additionalData?: { serviceCategory?: string }
   ) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
-  loginWithGoogle: (role?: UserRole) => Promise<void>;
+  loginWithGoogle: (role?: UserRole, additionalData?: { serviceCategory?: string }) => Promise<GoogleAuthResult>;
   logout: () => Promise<void>;
   sendPasswordReset: (email: string) => Promise<void>;
   refreshProfile: () => Promise<void>;
@@ -95,11 +97,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
       email: string,
       password: string,
       displayName: string,
-      role: UserRole
+      role: UserRole,
+      additionalData?: { serviceCategory?: string }
     ) => {
       setState((prev) => ({ ...prev, loading: true, error: null }));
       try {
-        await registerUser(email, password, displayName, role);
+        await registerUser(email, password, displayName, role, additionalData);
         // Auth state listener will handle updating state
       } catch (err) {
         const message = err instanceof Error ? err.message : 'Registration failed';
@@ -124,11 +127,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   // Login with Google
-  const loginWithGoogle = useCallback(async (role?: UserRole) => {
+  const loginWithGoogle = useCallback(async (role?: UserRole, additionalData?: { serviceCategory?: string }): Promise<GoogleAuthResult> => {
     setState((prev) => ({ ...prev, loading: true, error: null }));
     try {
-      await signInWithGoogle(role);
+      const result = await signInWithGoogle(role, additionalData);
       // Auth state listener will handle updating state
+      return result;
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Google sign-in failed';
       setState((prev) => ({ ...prev, loading: false, error: message }));

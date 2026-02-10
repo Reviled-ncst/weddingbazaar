@@ -9,7 +9,7 @@ import {
   Select,
   SelectItem,
 } from '@heroui/react';
-import { FiHeart, FiMail, FiLock, FiUser, FiEye, FiEyeOff, FiArrowRight, FiCheckCircle, FiX, FiGrid } from 'react-icons/fi';
+import { FiHeart, FiMail, FiLock, FiUser, FiEye, FiEyeOff, FiArrowRight, FiCheckCircle, FiX, FiGrid, FiClipboard } from 'react-icons/fi';
 import { FcGoogle } from 'react-icons/fc';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '@/hooks/useAuth';
@@ -87,7 +87,10 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
     setIsLoading(true);
     
     try {
-      await register(registerEmail, registerPassword, registerName, registerRole);
+      const additionalData = (registerRole === 'provider' || registerRole === 'coordinator') && vendorCategory
+        ? { serviceCategory: vendorCategory }
+        : undefined;
+      await register(registerEmail, registerPassword, registerName, registerRole, additionalData);
       handleClose();
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : 'Registration failed. Please try again.';
@@ -102,7 +105,10 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
     setIsLoading(true);
     
     try {
-      await loginWithGoogle(activeTab === 'register' ? registerRole : undefined);
+      const additionalData = (registerRole === 'provider' || registerRole === 'coordinator') && vendorCategory
+        ? { serviceCategory: vendorCategory }
+        : undefined;
+      await loginWithGoogle(activeTab === 'register' ? registerRole : undefined, additionalData);
       handleClose();
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : 'Google sign-in failed. Please try again.';
@@ -252,7 +258,7 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
           </div>
           
           {/* Right Side - Form */}
-          <div className="flex-1 bg-slate-950 p-6 lg:p-8 flex flex-col relative">
+          <div className="flex-1 bg-slate-950 p-6 lg:p-8 flex flex-col relative overflow-y-auto">
             {/* Close Button */}
             <button
               onClick={handleClose}
@@ -353,11 +359,11 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             placeholder="you@example.com"
                             value={loginEmail}
                             onValueChange={setLoginEmail}
-                            startContent={<FiMail className="text-white/50 text-lg mr-1" />}
+                            startContent={<FiMail className="text-white/50 text-lg" />}
                             isRequired
                             classNames={{
-                              input: "text-white placeholder:text-white/40",
-                              inputWrapper: "bg-slate-700/80 border border-slate-500 hover:border-slate-400 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
+                              input: "text-white placeholder:text-white/40 pl-2",
+                              inputWrapper: "bg-slate-600 border border-slate-500 hover:border-slate-400 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl px-4",
                             }}
                           />
                         </div>
@@ -374,7 +380,7 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             placeholder="••••••••"
                             value={loginPassword}
                             onValueChange={setLoginPassword}
-                            startContent={<FiLock className="text-white/50 text-lg mr-1" />}
+                            startContent={<FiLock className="text-white/50 text-lg" />}
                             endContent={
                               <button type="button" onClick={() => setShowPassword(!showPassword)} className="text-white/50 hover:text-white/70 p-1">
                                 {showPassword ? <FiEyeOff className="text-lg" /> : <FiEye className="text-lg" />}
@@ -382,8 +388,8 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             }
                             isRequired
                             classNames={{
-                              input: "text-white placeholder:text-white/40",
-                              inputWrapper: "bg-slate-700/80 border border-slate-500 hover:border-slate-400 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
+                              input: "text-white placeholder:text-white/40 pl-2",
+                              inputWrapper: "bg-slate-600 border border-slate-500 hover:border-slate-400 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl px-4",
                             }}
                           />
                         </div>
@@ -438,7 +444,7 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                       {/* Role Selection - Cards */}
                       <div>
                         <label className="block text-sm font-medium text-white/70 mb-2">I am a:</label>
-                        <div className="grid grid-cols-2 gap-2">
+                        <div className="grid grid-cols-3 gap-2">
                           <button
                             type="button"
                             onClick={() => setRegisterRole('couple')}
@@ -478,6 +484,26 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             </p>
                             <p className="text-xs text-white/40">Offering services</p>
                           </button>
+                          
+                          <button
+                            type="button"
+                            onClick={() => setRegisterRole('coordinator')}
+                            className={`p-3 rounded-xl border-2 transition-all duration-300 text-left ${
+                              registerRole === 'coordinator'
+                                ? 'border-pink-500 bg-pink-500/10 shadow-lg shadow-pink-500/20'
+                                : 'border-slate-700 hover:border-slate-600 bg-slate-800/30'
+                            }`}
+                          >
+                            <div className={`w-8 h-8 rounded-lg mb-2 flex items-center justify-center ${
+                              registerRole === 'coordinator' ? 'bg-pink-500' : 'bg-slate-700'
+                            }`}>
+                              <FiClipboard className={registerRole === 'coordinator' ? 'text-white text-sm' : 'text-white/60 text-sm'} />
+                            </div>
+                            <p className={`font-semibold text-sm ${registerRole === 'coordinator' ? 'text-white' : 'text-white/70'}`}>
+                              Coordinator
+                            </p>
+                            <p className="text-xs text-white/40">Planning weddings</p>
+                          </button>
                         </div>
                       </div>
                       
@@ -510,11 +536,11 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             placeholder="John Doe"
                             value={registerName}
                             onValueChange={setRegisterName}
-                            startContent={<FiUser className="text-white/50 text-lg mr-1" />}
+                            startContent={<FiUser className="text-white/50 text-lg" />}
                             isRequired
                             classNames={{
-                              input: "text-white placeholder:text-white/40",
-                              inputWrapper: "bg-slate-700/80 border border-slate-500 hover:border-slate-400 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
+                              input: "text-white placeholder:text-white/40 pl-2",
+                              inputWrapper: "bg-slate-600 border border-slate-500 hover:border-slate-400 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl px-4",
                             }}
                           />
                         </div>
@@ -526,11 +552,11 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             placeholder="you@example.com"
                             value={registerEmail}
                             onValueChange={setRegisterEmail}
-                            startContent={<FiMail className="text-white/50 text-lg mr-1" />}
+                            startContent={<FiMail className="text-white/50 text-lg" />}
                             isRequired
                             classNames={{
-                              input: "text-white placeholder:text-white/40",
-                              inputWrapper: "bg-slate-700/80 border border-slate-500 hover:border-slate-400 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
+                              input: "text-white placeholder:text-white/40 pl-2",
+                              inputWrapper: "bg-slate-600 border border-slate-500 hover:border-slate-400 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl px-4",
                             }}
                           />
                         </div>
@@ -542,7 +568,7 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             placeholder="Min. 6 characters"
                             value={registerPassword}
                             onValueChange={setRegisterPassword}
-                            startContent={<FiLock className="text-white/50 text-lg mr-1" />}
+                            startContent={<FiLock className="text-white/50 text-lg" />}
                             endContent={
                               <button type="button" onClick={() => setShowPassword(!showPassword)} className="text-white/50 hover:text-white/70 p-1">
                                 {showPassword ? <FiEyeOff className="text-lg" /> : <FiEye className="text-lg" />}
@@ -550,8 +576,8 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             }
                             isRequired
                             classNames={{
-                              input: "text-white placeholder:text-white/40",
-                              inputWrapper: "bg-slate-700/80 border border-slate-500 hover:border-slate-400 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
+                              input: "text-white placeholder:text-white/40 pl-2",
+                              inputWrapper: "bg-slate-600 border border-slate-500 hover:border-slate-400 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl px-4",
                             }}
                           />
                         </div>
@@ -564,11 +590,11 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                               placeholder="Select your category"
                               selectedKeys={vendorCategory ? [vendorCategory] : []}
                               onSelectionChange={(keys) => setVendorCategory(Array.from(keys)[0] as string)}
-                              startContent={<FiGrid className="text-white/50 text-lg mr-1" />}
+                              startContent={<FiGrid className="text-white/50 text-lg" />}
                               classNames={{
-                                trigger: "bg-slate-700/80 border border-slate-500 hover:border-slate-400 data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
-                                value: "text-white",
-                                popoverContent: "bg-slate-800 border border-slate-600",
+                                trigger: "bg-slate-600 border border-slate-500 hover:border-slate-400 data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl px-4",
+                                value: "text-white pl-2",
+                                popoverContent: "bg-slate-700 border border-slate-600",
                               }}
                             >
                               {vendorCategories.map((category) => (

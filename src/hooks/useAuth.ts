@@ -23,6 +23,11 @@ export function useAuth() {
     [auth.profile?.role]
   );
 
+  const isCoordinator = useMemo(
+    () => auth.profile?.role === 'coordinator',
+    [auth.profile?.role]
+  );
+
   const isProvider = useMemo(
     () => auth.profile?.role === 'provider',
     [auth.profile?.role]
@@ -52,6 +57,8 @@ export function useAuth() {
         return '/couple/dashboard';
       case 'provider':
         return '/provider/dashboard';
+      case 'coordinator':
+        return '/coordinator/dashboard';
       case 'admin':
         return '/admin/dashboard';
       default:
@@ -80,12 +87,15 @@ export function useAuth() {
       password: string,
       displayName: string,
       role: UserRole,
-      redirectTo?: string
+      redirectTo?: string,
+      additionalData?: { serviceCategory?: string }
     ) => {
-      await auth.register(email, password, displayName, role);
+      await auth.register(email, password, displayName, role, additionalData);
       // Determine default redirect based on role
       const defaultRedirect = role === 'provider' 
         ? '/provider/onboarding'
+        : role === 'coordinator'
+        ? '/coordinator/onboarding'
         : '/couple/dashboard';
       router.push(redirectTo || defaultRedirect);
     },
@@ -94,8 +104,8 @@ export function useAuth() {
 
   // Google login with redirect
   const googleLoginWithRedirect = useCallback(
-    async (role?: UserRole, redirectTo?: string) => {
-      await auth.loginWithGoogle(role);
+    async (role?: UserRole, redirectTo?: string, additionalData?: { serviceCategory?: string }) => {
+      await auth.loginWithGoogle(role, additionalData);
       router.push(redirectTo || getDashboardRoute());
     },
     [auth, router, getDashboardRoute]
@@ -165,6 +175,7 @@ export function useAuth() {
     isAuthenticated,
     isCouple,
     isProvider,
+    isCoordinator,
     isAdmin,
     isApprovedProvider,
     isPremiumProvider,

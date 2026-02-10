@@ -1,5 +1,5 @@
 // User Types
-export type UserRole = 'couple' | 'provider' | 'admin';
+export type UserRole = 'couple' | 'provider' | 'coordinator' | 'admin';
 
 export interface User {
   uid: string;
@@ -46,6 +46,32 @@ export interface ProviderProfile extends User {
   yearsInBusiness?: number;
   licenses?: string[];
   awards?: string[];
+}
+
+export interface CoordinatorProfile extends User {
+  role: 'coordinator';
+  businessName: string;
+  description?: string;
+  location: LocationData;
+  isApproved: boolean;
+  isPremium: boolean;
+  rating: number;
+  reviewCount: number;
+  activeClients: number; // Number of couples currently working with
+  completedWeddings: number;
+  specializations?: string[]; // e.g., "Destination", "Luxury", "Budget-friendly"
+  servicesOffered?: string[]; // e.g., "Full planning", "Day-of coordination", "Partial planning"
+  priceRange?: {
+    min: number;
+    max: number;
+    unit: 'fixed' | 'percentage'; // Fixed fee or % of wedding budget
+  };
+  teamMembers?: TeamMember[];
+  socialLinks?: SocialLinks;
+  galleryImages?: GalleryImage[];
+  yearsExperience?: number;
+  certifications?: string[]; // e.g., "WPI Certified", "ABC Certified"
+  vendorNetwork?: string[]; // Preferred vendor IDs they work with
 }
 
 export interface TeamMember {

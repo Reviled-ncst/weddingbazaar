@@ -94,6 +94,19 @@ Wedding Bazaar is a comprehensive wedding planning platform that connects couple
 - Respond to reviews
 - Mark dates as booked/unavailable
 
+### 4. Wedding Coordinator/Planner
+- Create and manage coordinator profile
+- **Manage multiple couples/clients simultaneously**
+- Access vendor directory to recommend to clients
+- Build preferred vendor network
+- Track client wedding timelines and budgets
+- Coordinate bookings with vendors on behalf of clients
+- Services offered: Full planning, Partial planning, Day-of coordination
+- Pricing: Fixed fee or percentage of wedding budget
+- Portfolio of completed weddings
+- Certifications and credentials display
+- Client testimonials and ratings
+
 ---
 
 ## 📁 Database Structure (Firestore)

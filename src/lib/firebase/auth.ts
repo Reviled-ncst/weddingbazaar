@@ -12,7 +12,7 @@ import {
 import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, db } from './config';
 
-export type UserRole = 'couple' | 'provider' | 'admin';
+export type UserRole = 'couple' | 'provider' | 'coordinator' | 'admin';
 
 export interface UserProfile {
   uid: string;
@@ -39,12 +39,24 @@ const generateUniqueId = (prefix: string): string => {
   return `${prefix}-${timestamp}${random}`;
 };
 
+// Get role prefix for ID generation
+const getRolePrefix = (role: UserRole): string => {
+  switch (role) {
+    case 'couple': return 'CPL';
+    case 'provider': return 'VND';
+    case 'coordinator': return 'CRD';
+    case 'admin': return 'ADM';
+    default: return 'USR';
+  }
+};
+
 // Register new user
 export const registerUser = async (
   email: string,
   password: string,
   displayName: string,
-  role: UserRole
+  role: UserRole,
+  additionalData?: { serviceCategory?: string }
 ): Promise<User> => {
   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
   const user = userCredential.user;
@@ -53,11 +65,10 @@ export const registerUser = async (
   await updateProfile(user, { displayName });
 
   // Generate custom ID based on role
-  const idPrefix = role === 'couple' ? 'CPL' : role === 'provider' ? 'VND' : 'ADM';
-  const customId = generateUniqueId(idPrefix);
+  const customId = generateUniqueId(getRolePrefix(role));
 
   // Create user document in Firestore
-  const userDoc: Partial<UserProfile> = {
+  const userDoc: Partial<UserProfile> & { serviceCategory?: string } = {
     uid: user.uid,
     email: email,
     displayName: displayName,
@@ -68,9 +79,12 @@ export const registerUser = async (
   };
 
   // Add role-specific fields
-  if (role === 'provider') {
+  if (role === 'provider' || role === 'coordinator') {
     userDoc.isApproved = false;
     userDoc.isPremium = false;
+    if (additionalData?.serviceCategory) {
+      userDoc.serviceCategory = additionalData.serviceCategory;
+    }
   }
 
   await setDoc(doc(db, 'users', user.uid), {
@@ -89,9 +103,23 @@ export const loginUser = async (email: string, password: string): Promise<User> 
   return userCredential.user;
 };
 
-// Sign in with Google
-export const signInWithGoogle = async (role?: UserRole): Promise<User> => {
+// Sign in with Google - returns user data for pre-fill
+export interface GoogleAuthResult {
+  user: User;
+  isNewUser: boolean;
+  prefillData?: {
+    displayName: string;
+    email: string;
+    photoURL?: string;
+  };
+}
+
+export const signInWithGoogle = async (role?: UserRole, additionalData?: { serviceCategory?: string }): Promise<GoogleAuthResult> => {
   const provider = new GoogleAuthProvider();
+  // Request additional scopes for user info
+  provider.addScope('profile');
+  provider.addScope('email');
+  
   const userCredential = await signInWithPopup(auth, provider);
   const user = userCredential.user;
 
@@ -99,12 +127,13 @@ export const signInWithGoogle = async (role?: UserRole): Promise<User> => {
   const userDocRef = doc(db, 'users', user.uid);
   const userDocSnap = await getDoc(userDocRef);
 
-  if (!userDocSnap.exists() && role) {
-    // New user - create profile
-    const idPrefix = role === 'couple' ? 'CPL' : role === 'provider' ? 'VND' : 'ADM';
-    const customId = generateUniqueId(idPrefix);
+  const isNewUser = !userDocSnap.exists();
 
-    const userDoc: Partial<UserProfile> = {
+  if (isNewUser && role) {
+    // New user - create profile
+    const customId = generateUniqueId(getRolePrefix(role));
+
+    const userDoc: Partial<UserProfile> & { serviceCategory?: string } = {
       uid: user.uid,
       email: user.email || '',
       displayName: user.displayName || 'User',
@@ -113,9 +142,12 @@ export const signInWithGoogle = async (role?: UserRole): Promise<User> => {
       isActive: true,
     };
 
-    if (role === 'provider') {
+    if (role === 'provider' || role === 'coordinator') {
       userDoc.isApproved = false;
       userDoc.isPremium = false;
+      if (additionalData?.serviceCategory) {
+        userDoc.serviceCategory = additionalData.serviceCategory;
+      }
     }
 
     await setDoc(userDocRef, {
@@ -126,7 +158,15 @@ export const signInWithGoogle = async (role?: UserRole): Promise<User> => {
     });
   }
 
-  return user;
+  return {
+    user,
+    isNewUser,
+    prefillData: {
+      displayName: user.displayName || '',
+      email: user.email || '',
+      photoURL: user.photoURL || undefined,
+    },
+  };
 };
 
 // Sign out
