@@ -135,7 +135,7 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
       }}
     >
       <ModalContent className="overflow-hidden my-auto">
-        <div className="flex h-[85vh] max-h-[700px] overflow-hidden rounded-3xl">
+        <div className="flex h-auto max-h-[90vh] overflow-hidden rounded-3xl">
           {/* Left Side - Decorative */}
           <div className="hidden lg:flex lg:w-[45%] relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-10 flex-col justify-between overflow-hidden">
             {/* Background Pattern */}
@@ -233,7 +233,7 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
           </div>
           
           {/* Right Side - Form */}
-          <div className="flex-1 bg-slate-950 p-8 lg:p-12 flex flex-col relative">
+          <div className="flex-1 bg-slate-950 p-6 lg:p-8 flex flex-col relative">
             {/* Close Button */}
             <button
               onClick={handleClose}
@@ -254,10 +254,10 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
             </div>
             
             {/* Tab Switcher */}
-            <div className="flex gap-1 p-1.5 bg-slate-800/50 rounded-2xl mb-8">
+            <div className="flex gap-1 p-1 bg-slate-800/50 rounded-xl mb-4">
               <button
                 onClick={() => { setActiveTab('login'); setError(''); }}
-                className={`flex-1 py-3 px-6 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all duration-300 ${
                   activeTab === 'login'
                     ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-lg shadow-pink-500/30'
                     : 'text-white/60 hover:text-white hover:bg-white/5'
@@ -267,7 +267,7 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
               </button>
               <button
                 onClick={() => { setActiveTab('register'); setError(''); }}
-                className={`flex-1 py-3 px-6 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all duration-300 ${
                   activeTab === 'register'
                     ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-lg shadow-pink-500/30'
                     : 'text-white/60 hover:text-white hover:bg-white/5'
@@ -278,7 +278,7 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
             </div>
             
             {/* Form Content */}
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-1">
               <AnimatePresence mode="wait">
                 {activeTab === 'login' ? (
                   <motion.div
@@ -288,12 +288,12 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                     exit={{ opacity: 0, x: -20 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <div className="mb-6">
-                      <h3 className="text-2xl font-bold text-white mb-2">Welcome back!</h3>
-                      <p className="text-white/50">Sign in to continue planning your perfect day.</p>
+                    <div className="mb-4">
+                      <h3 className="text-xl font-bold text-white mb-1">Welcome back!</h3>
+                      <p className="text-white/50 text-sm">Sign in to continue planning your perfect day.</p>
                     </div>
                     
-                    <form onSubmit={handleLogin} className="space-y-5">
+                    <form onSubmit={handleLogin} className="space-y-3">
                       {error && (
                         <motion.div
                           initial={{ opacity: 0, y: -10 }}
@@ -317,7 +317,7 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                         Continue with Google
                       </Button>
                       
-                      <div className="relative py-3">
+                      <div className="relative py-2">
                         <div className="absolute inset-0 flex items-center">
                           <div className="w-full border-t border-slate-700/50" />
                         </div>
@@ -326,9 +326,9 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                         </div>
                       </div>
                       
-                      <div className="space-y-4">
+                      <div className="space-y-3">
                         <div>
-                          <label className="block text-sm font-medium text-white/70 mb-2">Email Address</label>
+                          <label className="block text-xs font-medium text-white/70 mb-1">Email Address</label>
                           <Input
                             type="email"
                             placeholder="you@example.com"
@@ -337,16 +337,16 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             startContent={<FiMail className="text-white/40 text-lg" />}
                             isRequired
                             classNames={{
-                              input: "text-white placeholder:text-white/30 text-base",
-                              inputWrapper: "bg-slate-800/50 border-2 border-slate-700 hover:border-pink-500/50 group-data-[focus=true]:border-pink-500 h-14 rounded-xl",
+                              input: "text-white placeholder:text-white/30",
+                              inputWrapper: "bg-slate-800/50 border-2 border-slate-700 hover:border-pink-500/50 group-data-[focus=true]:border-pink-500 h-11 rounded-xl",
                             }}
                           />
                         </div>
                         
                         <div>
-                          <div className="flex justify-between items-center mb-2">
-                            <label className="block text-sm font-medium text-white/70">Password</label>
-                            <button type="button" className="text-sm text-pink-400 hover:text-pink-300 transition-colors">
+                          <div className="flex justify-between items-center mb-1">
+                            <label className="block text-xs font-medium text-white/70">Password</label>
+                            <button type="button" className="text-xs text-pink-400 hover:text-pink-300 transition-colors">
                               Forgot password?
                             </button>
                           </div>
@@ -363,8 +363,8 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             }
                             isRequired
                             classNames={{
-                              input: "text-white placeholder:text-white/30 text-base",
-                              inputWrapper: "bg-slate-800/50 border-2 border-slate-700 hover:border-pink-500/50 group-data-[focus=true]:border-pink-500 h-14 rounded-xl",
+                              input: "text-white placeholder:text-white/30",
+                              inputWrapper: "bg-slate-800/50 border-2 border-slate-700 hover:border-pink-500/50 group-data-[focus=true]:border-pink-500 h-11 rounded-xl",
                             }}
                           />
                         </div>
@@ -373,14 +373,14 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                       <Button
                         type="submit"
                         isLoading={isLoading}
-                        className="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold py-6 rounded-xl shadow-xl shadow-pink-500/25 hover:shadow-pink-500/40 transition-all text-base"
+                        className="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold py-5 rounded-xl shadow-xl shadow-pink-500/25 hover:shadow-pink-500/40 transition-all"
                         endContent={!isLoading && <FiArrowRight className="text-lg" />}
                       >
                         Sign In
                       </Button>
                     </form>
                     
-                    <p className="text-center text-sm text-white/40 mt-6">
+                    <p className="text-center text-sm text-white/40 mt-4">
                       Don&apos;t have an account?{' '}
                       <button 
                         type="button"
@@ -399,12 +399,12 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                     exit={{ opacity: 0, x: -20 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <div className="mb-6">
-                      <h3 className="text-2xl font-bold text-white mb-2">Create your account</h3>
-                      <p className="text-white/50">Join the community and start planning!</p>
+                    <div className="mb-4">
+                      <h3 className="text-xl font-bold text-white mb-1">Create your account</h3>
+                      <p className="text-white/50 text-sm">Join the community and start planning!</p>
                     </div>
                     
-                    <form onSubmit={handleRegister} className="space-y-5">
+                    <form onSubmit={handleRegister} className="space-y-3">
                       {error && (
                         <motion.div
                           initial={{ opacity: 0, y: -10 }}
@@ -418,46 +418,46 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                       
                       {/* Role Selection - Cards */}
                       <div>
-                        <label className="block text-sm font-medium text-white/70 mb-3">I am a:</label>
-                        <div className="grid grid-cols-2 gap-3">
+                        <label className="block text-sm font-medium text-white/70 mb-2">I am a:</label>
+                        <div className="grid grid-cols-2 gap-2">
                           <button
                             type="button"
                             onClick={() => setRegisterRole('couple')}
-                            className={`p-4 rounded-xl border-2 transition-all duration-300 text-left ${
+                            className={`p-3 rounded-xl border-2 transition-all duration-300 text-left ${
                               registerRole === 'couple'
                                 ? 'border-pink-500 bg-pink-500/10 shadow-lg shadow-pink-500/20'
                                 : 'border-slate-700 hover:border-slate-600 bg-slate-800/30'
                             }`}
                           >
-                            <div className={`w-10 h-10 rounded-xl mb-3 flex items-center justify-center ${
+                            <div className={`w-8 h-8 rounded-lg mb-2 flex items-center justify-center ${
                               registerRole === 'couple' ? 'bg-pink-500' : 'bg-slate-700'
                             }`}>
-                              <FiHeart className={registerRole === 'couple' ? 'text-white' : 'text-white/60'} />
+                              <FiHeart className={registerRole === 'couple' ? 'text-white text-sm' : 'text-white/60 text-sm'} />
                             </div>
-                            <p className={`font-semibold ${registerRole === 'couple' ? 'text-white' : 'text-white/70'}`}>
+                            <p className={`font-semibold text-sm ${registerRole === 'couple' ? 'text-white' : 'text-white/70'}`}>
                               Couple
                             </p>
-                            <p className="text-xs text-white/40 mt-1">Planning a wedding</p>
+                            <p className="text-xs text-white/40">Planning a wedding</p>
                           </button>
                           
                           <button
                             type="button"
                             onClick={() => setRegisterRole('provider')}
-                            className={`p-4 rounded-xl border-2 transition-all duration-300 text-left ${
+                            className={`p-3 rounded-xl border-2 transition-all duration-300 text-left ${
                               registerRole === 'provider'
                                 ? 'border-pink-500 bg-pink-500/10 shadow-lg shadow-pink-500/20'
                                 : 'border-slate-700 hover:border-slate-600 bg-slate-800/30'
                             }`}
                           >
-                            <div className={`w-10 h-10 rounded-xl mb-3 flex items-center justify-center ${
+                            <div className={`w-8 h-8 rounded-lg mb-2 flex items-center justify-center ${
                               registerRole === 'provider' ? 'bg-pink-500' : 'bg-slate-700'
                             }`}>
-                              <FiUser className={registerRole === 'provider' ? 'text-white' : 'text-white/60'} />
+                              <FiUser className={registerRole === 'provider' ? 'text-white text-sm' : 'text-white/60 text-sm'} />
                             </div>
-                            <p className={`font-semibold ${registerRole === 'provider' ? 'text-white' : 'text-white/70'}`}>
+                            <p className={`font-semibold text-sm ${registerRole === 'provider' ? 'text-white' : 'text-white/70'}`}>
                               Vendor
                             </p>
-                            <p className="text-xs text-white/40 mt-1">Offering services</p>
+                            <p className="text-xs text-white/40">Offering services</p>
                           </button>
                         </div>
                       </div>
@@ -468,13 +468,13 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                         variant="bordered"
                         onPress={handleGoogleSignIn}
                         isLoading={isLoading}
-                        className="w-full border-2 border-slate-700 text-white hover:bg-slate-800 py-6 rounded-xl font-medium"
-                        startContent={!isLoading && <FcGoogle className="text-2xl" />}
+                        className="w-full border-2 border-slate-700 text-white hover:bg-slate-800 py-5 rounded-xl font-medium"
+                        startContent={!isLoading && <FcGoogle className="text-xl" />}
                       >
                         Sign up with Google
                       </Button>
                       
-                      <div className="relative py-3">
+                      <div className="relative py-2">
                         <div className="absolute inset-0 flex items-center">
                           <div className="w-full border-t border-slate-700/50" />
                         </div>
@@ -483,9 +483,9 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                         </div>
                       </div>
                       
-                      <div className="space-y-4">
+                      <div className="space-y-3">
                         <div>
-                          <label className="block text-sm font-medium text-white/70 mb-2">Full Name</label>
+                          <label className="block text-xs font-medium text-white/70 mb-1">Full Name</label>
                           <Input
                             type="text"
                             placeholder="John Doe"
@@ -494,14 +494,14 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             startContent={<FiUser className="text-white/40 text-lg" />}
                             isRequired
                             classNames={{
-                              input: "text-white placeholder:text-white/30 text-base",
-                              inputWrapper: "bg-slate-800/50 border-2 border-slate-700 hover:border-pink-500/50 group-data-[focus=true]:border-pink-500 h-14 rounded-xl",
+                              input: "text-white placeholder:text-white/30",
+                              inputWrapper: "bg-slate-800/50 border-2 border-slate-700 hover:border-pink-500/50 group-data-[focus=true]:border-pink-500 h-11 rounded-xl",
                             }}
                           />
                         </div>
                         
                         <div>
-                          <label className="block text-sm font-medium text-white/70 mb-2">Email Address</label>
+                          <label className="block text-xs font-medium text-white/70 mb-1">Email Address</label>
                           <Input
                             type="email"
                             placeholder="you@example.com"
@@ -510,14 +510,14 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             startContent={<FiMail className="text-white/40 text-lg" />}
                             isRequired
                             classNames={{
-                              input: "text-white placeholder:text-white/30 text-base",
-                              inputWrapper: "bg-slate-800/50 border-2 border-slate-700 hover:border-pink-500/50 group-data-[focus=true]:border-pink-500 h-14 rounded-xl",
+                              input: "text-white placeholder:text-white/30",
+                              inputWrapper: "bg-slate-800/50 border-2 border-slate-700 hover:border-pink-500/50 group-data-[focus=true]:border-pink-500 h-11 rounded-xl",
                             }}
                           />
                         </div>
                         
                         <div>
-                          <label className="block text-sm font-medium text-white/70 mb-2">Password</label>
+                          <label className="block text-xs font-medium text-white/70 mb-1">Password</label>
                           <Input
                             type={showPassword ? 'text' : 'password'}
                             placeholder="Min. 6 characters"
@@ -531,8 +531,8 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             }
                             isRequired
                             classNames={{
-                              input: "text-white placeholder:text-white/30 text-base",
-                              inputWrapper: "bg-slate-800/50 border-2 border-slate-700 hover:border-pink-500/50 group-data-[focus=true]:border-pink-500 h-14 rounded-xl",
+                              input: "text-white placeholder:text-white/30",
+                              inputWrapper: "bg-slate-800/50 border-2 border-slate-700 hover:border-pink-500/50 group-data-[focus=true]:border-pink-500 h-11 rounded-xl",
                             }}
                           />
                         </div>
@@ -541,7 +541,7 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                       <Button
                         type="submit"
                         isLoading={isLoading}
-                        className="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold py-6 rounded-xl shadow-xl shadow-pink-500/25 hover:shadow-pink-500/40 transition-all text-base"
+                        className="w-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold py-5 rounded-xl shadow-xl shadow-pink-500/25 hover:shadow-pink-500/40 transition-all"
                         endContent={!isLoading && <FiArrowRight className="text-lg" />}
                       >
                         Create Account
@@ -555,7 +555,7 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                       </p>
                     </form>
                     
-                    <p className="text-center text-sm text-white/40 mt-6">
+                    <p className="text-center text-sm text-white/40 mt-3">
                       Already have an account?{' '}
                       <button 
                         type="button"
