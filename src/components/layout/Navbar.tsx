@@ -48,56 +48,54 @@ export function Navbar() {
       <HeroNavbar
         isMenuOpen={isMenuOpen}
         onMenuOpenChange={setIsMenuOpen}
-        className="fixed top-1.5 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-lg shadow-black/5 border-b border-gray-100"
+        className="fixed top-1.5 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-700/50"
         maxWidth="xl"
       >
         {/* Logo */}
         <NavbarContent>
           <NavbarMenuToggle
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            className="sm:hidden text-gray-600"
+            className="sm:hidden text-pink-400"
           />
           <NavbarBrand>
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-pink-500 to-pink-600 flex items-center justify-center shadow-lg shadow-pink-500/25 group-hover:shadow-pink-500/40 transition-all duration-300">
+              <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center shadow-lg shadow-pink-500/30 group-hover:shadow-pink-500/50 transition-all duration-300 group-hover:scale-105">
                 <FiHeart className="text-white text-xl" />
               </div>
               <div className="flex flex-col">
-                <span className="font-bold text-xl text-gray-900 tracking-tight leading-none">
+                <span className="font-bold text-xl text-white tracking-tight leading-none">
                   Wedding Bazaar
                 </span>
-                <span className="text-xs text-pink-500 font-medium hidden sm:block">Your Perfect Day Awaits</span>
+                <span className="text-xs text-pink-400 font-medium hidden sm:block">Your Perfect Day Awaits</span>
               </div>
             </Link>
           </NavbarBrand>
         </NavbarContent>
 
-        {/* Desktop Navigation - Simple text links */}
-        <NavbarContent className="hidden sm:flex gap-8" justify="center">
-          {publicLinks.map((link) => (
-            <NavbarItem key={link.href}>
+        {/* Desktop Navigation - Cream/beige container for contrast */}
+        <NavbarContent className="hidden sm:flex" justify="center">
+          <div className="flex items-center gap-1 bg-amber-50/95 backdrop-blur-sm rounded-full px-2 py-1.5 shadow-lg shadow-black/10 border border-amber-100/50">
+            {publicLinks.map((link) => (
               <Link
+                key={link.href}
                 href={link.href}
-                className={`relative py-2 text-sm font-medium transition-colors ${
+                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                   pathname === link.href
-                    ? 'text-pink-500'
-                    : 'text-gray-600 hover:text-pink-500'
+                    ? 'text-pink-600 bg-white shadow-sm'
+                    : 'text-slate-600 hover:text-pink-600 hover:bg-white/50'
                 }`}
               >
                 {link.name}
-                {pathname === link.href && (
-                  <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-pink-500 rounded-full" />
-                )}
               </Link>
-            </NavbarItem>
-          ))}
+            ))}
+          </div>
         </NavbarContent>
 
         {/* Auth Section */}
         <NavbarContent justify="end" className="gap-2">
           {/* Search Icon */}
           <NavbarItem className="hidden sm:flex">
-            <button className="w-10 h-10 rounded-full flex items-center justify-center text-gray-500 hover:text-pink-500 hover:bg-pink-50 transition-colors">
+            <button className="w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-pink-400 hover:bg-white/10 transition-colors">
               <FiSearch className="text-lg" />
             </button>
           </NavbarItem>
@@ -105,34 +103,34 @@ export function Navbar() {
           {isAuthenticated ? (
             <Dropdown placement="bottom-end">
               <DropdownTrigger>
-                <button className="flex items-center gap-2 px-2 py-2 rounded-full hover:bg-gray-100 transition-colors">
+                <button className="flex items-center gap-2 px-2 py-2 rounded-full hover:bg-white/10 transition-colors">
                   <Avatar
-                    className="ring-2 ring-pink-500/30"
+                    className="ring-2 ring-pink-500/50"
                     color="secondary"
                     name={profile?.displayName || user?.email || 'User'}
                     size="sm"
                     src={profile?.photoURL || undefined}
                   />
-                  <FiChevronDown className="text-gray-400 text-sm" />
+                  <FiChevronDown className="text-white/60 text-sm" />
                 </button>
               </DropdownTrigger>
-              <DropdownMenu aria-label="User menu" variant="flat" className="w-56">
+              <DropdownMenu aria-label="User menu" variant="flat" className="w-56 bg-slate-800 border border-white/10">
                 <DropdownItem key="profile" className="h-14 gap-2" textValue="profile">
-                  <p className="font-medium text-gray-400 text-xs">Signed in as</p>
-                  <p className="font-semibold text-gray-900">
+                  <p className="font-medium text-white/50 text-xs">Signed in as</p>
+                  <p className="font-semibold text-pink-400">
                     {profile?.displayName || user?.email}
                   </p>
                 </DropdownItem>
                 <DropdownItem
                   key="dashboard"
-                  startContent={<FiGrid className="text-pink-500" />}
+                  startContent={<FiGrid className="text-pink-400" />}
                   href={getDashboardLink()}
                 >
                   Dashboard
                 </DropdownItem>
                 <DropdownItem
                   key="favorites"
-                  startContent={<FiHeart className="text-pink-500" />}
+                  startContent={<FiHeart className="text-pink-400" />}
                   href="/couple/favorites"
                   className={isCouple ? '' : 'hidden'}
                 >
@@ -140,7 +138,7 @@ export function Navbar() {
                 </DropdownItem>
                 <DropdownItem
                   key="settings"
-                  startContent={<FiSettings className="text-pink-500" />}
+                  startContent={<FiSettings className="text-pink-400" />}
                   href={`/${profile?.role || 'couple'}/settings`}
                 >
                   Settings
@@ -160,14 +158,14 @@ export function Navbar() {
               {/* User Icon */}
               <NavbarItem className="hidden sm:flex">
                 <Link href="/login">
-                  <button className="w-10 h-10 rounded-full flex items-center justify-center text-gray-500 hover:text-pink-500 hover:bg-pink-50 transition-colors">
+                  <button className="w-10 h-10 rounded-full flex items-center justify-center text-white/70 hover:text-pink-400 hover:bg-white/10 transition-colors">
                     <FiUser className="text-lg" />
                   </button>
                 </Link>
               </NavbarItem>
               <NavbarItem>
                 <Link href="/register">
-                  <Button className="bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white font-semibold px-6 rounded-full shadow-lg shadow-pink-500/25 hover:shadow-pink-500/40 transition-all duration-300">
+                  <Button className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold px-6 rounded-full shadow-lg shadow-pink-500/30 hover:shadow-pink-500/50 transition-all duration-300">
                     Get Started
                   </Button>
                 </Link>
@@ -177,15 +175,15 @@ export function Navbar() {
         </NavbarContent>
 
         {/* Mobile Menu */}
-        <NavbarMenu className="pt-6 bg-white">
+        <NavbarMenu className="pt-6 bg-slate-900">
           {publicLinks.map((link) => (
             <NavbarMenuItem key={link.href}>
               <Link
                 href={link.href}
                 className={`block py-3 text-lg font-medium transition-colors ${
                   pathname === link.href
-                    ? 'text-pink-500'
-                    : 'text-gray-700 hover:text-pink-500'
+                    ? 'text-pink-400'
+                    : 'text-white/80 hover:text-pink-400'
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -195,10 +193,10 @@ export function Navbar() {
           ))}
           {!isAuthenticated && (
             <>
-              <NavbarMenuItem className="mt-6 pt-6 border-t border-gray-100">
+              <NavbarMenuItem className="mt-6 pt-6 border-t border-white/10">
                 <Link
                   href="/login"
-                  className="block py-3 text-lg text-gray-600 font-medium"
+                  className="block py-3 text-lg text-white/70 font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Log In
