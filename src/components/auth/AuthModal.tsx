@@ -337,8 +337,8 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             startContent={<FiMail className="text-white/40 text-lg" />}
                             isRequired
                             classNames={{
-                              input: "text-white placeholder:text-white/30",
-                              inputWrapper: "bg-slate-800/50 border-2 border-slate-700 hover:border-pink-500/50 group-data-[focus=true]:border-pink-500 h-11 rounded-xl",
+                              input: "text-white placeholder:text-white/40",
+                              inputWrapper: "bg-slate-800 border border-slate-600 hover:border-slate-500 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
                             }}
                           />
                         </div>
@@ -363,8 +363,8 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             }
                             isRequired
                             classNames={{
-                              input: "text-white placeholder:text-white/30",
-                              inputWrapper: "bg-slate-800/50 border-2 border-slate-700 hover:border-pink-500/50 group-data-[focus=true]:border-pink-500 h-11 rounded-xl",
+                              input: "text-white placeholder:text-white/40",
+                              inputWrapper: "bg-slate-800 border border-slate-600 hover:border-slate-500 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
                             }}
                           />
                         </div>
@@ -494,8 +494,8 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             startContent={<FiUser className="text-white/40 text-lg" />}
                             isRequired
                             classNames={{
-                              input: "text-white placeholder:text-white/30",
-                              inputWrapper: "bg-slate-800/50 border-2 border-slate-700 hover:border-pink-500/50 group-data-[focus=true]:border-pink-500 h-11 rounded-xl",
+                              input: "text-white placeholder:text-white/40",
+                              inputWrapper: "bg-slate-800 border border-slate-600 hover:border-slate-500 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
                             }}
                           />
                         </div>
@@ -510,8 +510,8 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             startContent={<FiMail className="text-white/40 text-lg" />}
                             isRequired
                             classNames={{
-                              input: "text-white placeholder:text-white/30",
-                              inputWrapper: "bg-slate-800/50 border-2 border-slate-700 hover:border-pink-500/50 group-data-[focus=true]:border-pink-500 h-11 rounded-xl",
+                              input: "text-white placeholder:text-white/40",
+                              inputWrapper: "bg-slate-800 border border-slate-600 hover:border-slate-500 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
                             }}
                           />
                         </div>
@@ -531,8 +531,8 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
                             }
                             isRequired
                             classNames={{
-                              input: "text-white placeholder:text-white/30",
-                              inputWrapper: "bg-slate-800/50 border-2 border-slate-700 hover:border-pink-500/50 group-data-[focus=true]:border-pink-500 h-11 rounded-xl",
+                              input: "text-white placeholder:text-white/40",
+                              inputWrapper: "bg-slate-800 border border-slate-600 hover:border-slate-500 group-data-[focus=true]:border-pink-500 shadow-none h-11 rounded-xl",
                             }}
                           />
                         </div>
