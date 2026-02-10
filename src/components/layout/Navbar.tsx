@@ -18,13 +18,13 @@ import {
   DropdownItem,
   Avatar,
 } from '@heroui/react';
-import { FiHeart, FiUser, FiLogOut, FiSettings, FiGrid, FiChevronDown } from 'react-icons/fi';
+import { FiHeart, FiLogOut, FiSettings, FiGrid, FiChevronDown, FiSearch, FiPlay, FiStar, FiArrowRight } from 'react-icons/fi';
 import { useAuth } from '@/hooks/useAuth';
 
 const publicLinks = [
-  { name: 'Browse Vendors', href: '/vendors' },
-  { name: 'Categories', href: '/categories' },
-  { name: 'How It Works', href: '/#how-it-works' },
+  { name: 'Browse Vendors', subtitle: '12+ categories', href: '/vendors', icon: FiSearch },
+  { name: 'Style Quiz', subtitle: 'Find your match', href: '/quiz', icon: FiPlay },
+  { name: 'Top Rated', subtitle: 'Verified pros', href: '/top-rated', icon: FiStar, featured: true },
 ];
 
 export function Navbar() {
@@ -81,21 +81,37 @@ export function Navbar() {
       </NavbarContent>
 
       {/* Desktop Navigation */}
-      <NavbarContent className="hidden sm:flex gap-1" justify="center">
-        {publicLinks.map((link) => (
-          <NavbarItem key={link.href} isActive={pathname === link.href}>
-            <Link
-              href={link.href}
-              className={`px-5 py-2.5 rounded-full text-sm font-medium tracking-wide transition-all duration-300 ${
-                pathname === link.href
-                  ? 'bg-pink-500/20 text-pink-400 border border-pink-500/30'
-                  : 'text-white/80 hover:text-pink-400 hover:bg-white/5'
-              }`}
-            >
-              {link.name}
-            </Link>
-          </NavbarItem>
-        ))}
+      <NavbarContent className="hidden sm:flex gap-2" justify="center">
+        {publicLinks.map((link) => {
+          const Icon = link.icon;
+          return (
+            <NavbarItem key={link.href}>
+              <Link
+                href={link.href}
+                className={`group flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-300 ${
+                  link.featured
+                    ? 'bg-gradient-to-r from-pink-500/20 to-purple-500/10 border border-pink-500/50 hover:border-pink-400'
+                    : 'bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10'
+                }`}
+              >
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                  link.featured
+                    ? 'bg-gradient-to-br from-pink-500 to-pink-600'
+                    : 'bg-pink-500/20'
+                }`}>
+                  <Icon className={`text-sm ${link.featured ? 'text-white' : 'text-pink-400'}`} />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium text-white leading-tight">{link.name}</span>
+                  <span className="text-[10px] text-white/50">{link.subtitle}</span>
+                </div>
+                <FiArrowRight className={`text-xs ml-1 transition-transform group-hover:translate-x-0.5 ${
+                  link.featured ? 'text-pink-400' : 'text-white/30'
+                }`} />
+              </Link>
+            </NavbarItem>
+          );
+        })}
       </NavbarContent>
 
       {/* Auth Section */}
@@ -157,15 +173,16 @@ export function Navbar() {
           <>
             <NavbarItem className="hidden sm:flex">
               <Link href="/login">
-                <Button variant="light" className="text-white/80 font-medium hover:text-pink-400 hover:bg-white/5">
+                <Button variant="light" className="text-white/70 font-medium hover:text-white hover:bg-white/10 border border-transparent hover:border-white/10 rounded-xl px-5">
                   Log In
                 </Button>
               </Link>
             </NavbarItem>
             <NavbarItem>
               <Link href="/register">
-                <Button className="bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white font-semibold px-6 shadow-lg shadow-pink-500/30 hover:shadow-pink-500/50 transition-all duration-300">
+                <Button className="bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white font-semibold px-5 rounded-xl shadow-lg shadow-pink-500/30 hover:shadow-pink-500/50 transition-all duration-300 flex items-center gap-2">
                   Get Started
+                  <FiArrowRight className="text-sm" />
                 </Button>
               </Link>
             </NavbarItem>
@@ -174,40 +191,55 @@ export function Navbar() {
       </NavbarContent>
 
       {/* Mobile Menu */}
-      <NavbarMenu className="pt-6 bg-slate-900">
-        {publicLinks.map((link) => (
-          <NavbarMenuItem key={link.href}>
-            <Link
-              href={link.href}
-              className={`w-full block py-3 text-lg font-medium rounded-xl px-4 transition-colors ${
-                pathname === link.href 
-                  ? 'text-pink-400 bg-pink-500/10' 
-                  : 'text-white/80 hover:bg-white/5 hover:text-pink-400'
-              }`}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {link.name}
-            </Link>
-          </NavbarMenuItem>
-        ))}
+      <NavbarMenu className="pt-6 bg-slate-900/98 backdrop-blur-xl">
+        {publicLinks.map((link) => {
+          const Icon = link.icon;
+          return (
+            <NavbarMenuItem key={link.href}>
+              <Link
+                href={link.href}
+                className={`flex items-center gap-4 py-4 px-4 rounded-xl transition-all ${
+                  link.featured
+                    ? 'bg-gradient-to-r from-pink-500/20 to-purple-500/10 border border-pink-500/50'
+                    : 'bg-white/5 border border-white/10'
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                  link.featured
+                    ? 'bg-gradient-to-br from-pink-500 to-pink-600'
+                    : 'bg-pink-500/20'
+                }`}>
+                  <Icon className={`text-base ${link.featured ? 'text-white' : 'text-pink-400'}`} />
+                </div>
+                <div className="flex-1">
+                  <span className="text-base font-medium text-white block">{link.name}</span>
+                  <span className="text-xs text-white/50">{link.subtitle}</span>
+                </div>
+                <FiArrowRight className={`${link.featured ? 'text-pink-400' : 'text-white/30'}`} />
+              </Link>
+            </NavbarMenuItem>
+          );
+        })}
         {!isAuthenticated && (
           <>
-            <NavbarMenuItem className="mt-4">
+            <NavbarMenuItem className="mt-6 pt-6 border-t border-white/10">
               <Link
                 href="/login"
-                className="w-full block py-3 text-lg text-white/70 font-medium px-4"
+                className="flex items-center justify-center py-3 text-base text-white/70 font-medium rounded-xl border border-white/10 hover:bg-white/5 transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Log In
               </Link>
             </NavbarMenuItem>
-            <NavbarMenuItem>
+            <NavbarMenuItem className="mt-3">
               <Link
                 href="/register"
-                className="w-full block py-3 text-lg text-white font-semibold px-4 bg-gradient-to-r from-pink-500 to-pink-600 rounded-xl text-center"
+                className="flex items-center justify-center py-3 text-base text-white font-semibold bg-gradient-to-r from-pink-500 to-pink-600 rounded-xl shadow-lg shadow-pink-500/30"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Get Started
+                <FiArrowRight className="ml-2" />
               </Link>
             </NavbarMenuItem>
           </>
