@@ -122,9 +122,10 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
       size="5xl"
       classNames={{
         base: "bg-transparent shadow-none",
-        wrapper: "overflow-hidden",
+        wrapper: "overflow-hidden items-center justify-center",
         closeButton: "hidden",
       }}
+      placement="center"
       backdrop="blur"
       motionProps={{
         variants: {
@@ -133,8 +134,8 @@ export function AuthModal({ isOpen, onClose, defaultTab = 'login' }: AuthModalPr
         },
       }}
     >
-      <ModalContent className="overflow-hidden">
-        <div className="flex min-h-[600px] max-h-[90vh] overflow-hidden rounded-3xl">
+      <ModalContent className="overflow-hidden my-auto">
+        <div className="flex h-[85vh] max-h-[700px] overflow-hidden rounded-3xl">
           {/* Left Side - Decorative */}
           <div className="hidden lg:flex lg:w-[45%] relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-10 flex-col justify-between overflow-hidden">
             {/* Background Pattern */}
